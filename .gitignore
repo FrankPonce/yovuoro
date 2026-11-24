@@ -12,3 +12,4 @@ site/.vercel/
 .impeccable/hook.cache.json
 __pycache__/
 *.pyc
+site/full.html
