@@ -1,0 +1,32 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-24T08:14:57.229Z",
+        "reason": "Claude: site and deck deliberately reuse the existing Yövahti brand type (Inter), decision ND9 in docs/DECISIONS.md"
+      },
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "deck/index.html"
+        ],
+        "createdAt": "2026-11-24T08:25:52.012Z",
+        "reason": "Claude: images start at opacity 0 on purpose and are revealed step by step (cabinet zoom, day/night cross-fades)"
+      },
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "site/index.html"
+        ],
+        "createdAt": "2026-11-24T08:25:52.139Z",
+        "reason": "Claude: images start at opacity 0 on purpose and are revealed step by step (cabinet zoom, day/night cross-fades)"
+      }
+    ]
+  }
+}

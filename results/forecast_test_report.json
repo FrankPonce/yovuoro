@@ -1,0 +1,27 @@
+{
+ "config": {
+  "calib": "rolling",
+  "refit_days": 7,
+  "level_norm": false,
+  "window": "test 9-22 Nov 2025",
+  "fit_end": "2025-10-26 00:00:00+00:00"
+ },
+ "mid": {
+  "skill_vs_seasonal_naive_pct": 29.54691432596831,
+  "coverage_p10_p90_pct": 81.16776497103172,
+  "above_p90_pct": 9.286775843836633,
+  "pinball_p90": 104.54743606319231
+ },
+ "nr": {
+  "skill_vs_seasonal_naive_pct": 29.35062070354384,
+  "coverage_p10_p90_pct": 81.28283272590173,
+  "above_p90_pct": 9.183030664823425,
+  "pinball_p90": 297.7854582556376
+ },
+ "low": {
+  "skill_vs_seasonal_naive_pct": 18.795726705452342,
+  "coverage_p10_p90_pct": 79.59456645557992,
+  "above_p90_pct": 9.360901181187558,
+  "pinball_p90": 29.385596934721605
+ }
+}

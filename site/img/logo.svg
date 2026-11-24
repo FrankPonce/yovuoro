@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Yövuoro logo">
+  <title>Yövuoro</title>
+  <defs>
+    <mask id="yv-crescent"><rect width="64" height="64" fill="#fff"/><circle cx="56.5" cy="5" r="9" fill="#000"/></mask>
+  </defs>
+  <!-- chip pins -->
+  <g fill="#94A3B8">
+    <rect x="17" y="4" width="3" height="6" rx="1.2"/><rect x="25" y="4" width="3" height="6" rx="1.2"/><rect x="33" y="4" width="3" height="6" rx="1.2"/>
+    <rect x="17" y="54" width="3" height="6" rx="1.2"/><rect x="25" y="54" width="3" height="6" rx="1.2"/><rect x="33" y="54" width="3" height="6" rx="1.2"/><rect x="41" y="54" width="3" height="6" rx="1.2"/>
+    <rect x="4" y="21" width="6" height="3" rx="1.2"/><rect x="4" y="29" width="6" height="3" rx="1.2"/><rect x="4" y="37" width="6" height="3" rx="1.2"/>
+    <rect x="54" y="29" width="6" height="3" rx="1.2"/><rect x="54" y="37" width="6" height="3" rx="1.2"/>
+  </g>
+  <!-- chip body -->
+  <rect x="10" y="10" width="44" height="44" rx="10" fill="#0F172A"/>
+  <!-- slices: one for the radio, three lent at night -->
+  <rect class="yv-b1" x="17" y="30" width="6" height="17" rx="2" fill="#6366F1"/>
+  <rect class="yv-b2" x="26" y="26" width="6" height="21" rx="2" fill="#22C55E"/>
+  <rect class="yv-b3" x="35" y="21" width="6" height="26" rx="2" fill="#22C55E"/>
+  <rect class="yv-b4" x="44" y="34" width="4" height="13" rx="2" fill="#22C55E" opacity=".55"/>
+  <!-- moon -->
+  <circle cx="50" cy="12" r="10" fill="#FBBF24" mask="url(#yv-crescent)"/>
+</svg>

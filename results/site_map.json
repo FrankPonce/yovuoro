@@ -1,0 +1,34 @@
+{
+ "concentration": {
+  "top_10pct_sites_traffic_share": 0.29178246519495804,
+  "top_20pct_sites_traffic_share": 0.4913314988484252,
+  "top_50pct_sites_traffic_share": 0.7971453940872846
+ },
+ "by_class": {
+  "top 20 % busiest": {
+   "sites": 53,
+   "traffic_share": 0.49133149884842514,
+   "lendable_gpu_h_per_day": 5.2046832884097025
+  },
+  "other 80 %": {
+   "sites": 211,
+   "traffic_share": 0.5086685011515748,
+   "lendable_gpu_h_per_day": 6.600330060934327
+  },
+  "with 5G 3.5 GHz": {
+   "sites": 100,
+   "traffic_share": 0.6719239891255092,
+   "lendable_gpu_h_per_day": 5.50982142857143
+  },
+  "without 5G 3.5 GHz": {
+   "sites": 164,
+   "traffic_share": 0.32807601087449056,
+   "lendable_gpu_h_per_day": 6.814242160278745
+  }
+ },
+ "lendable_gpu_h_per_day_quartiles": [
+  5.011160714285714,
+  6.058035714285714,
+  7.323660714285714
+ ]
+}

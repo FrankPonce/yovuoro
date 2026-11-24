@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Yövuoro · technical report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="img/logo.svg" type="image/svg+xml">
+<style>
+:root { --ink: #0F172A; --ink2: #334155; --mute: #5B6577; --rule: #DDE1DB; --brand: #4F46E5; --good: #15803D; --bad: #B91C1C; --bg: #F6F7F4; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, "Segoe UI", system-ui, sans-serif; color: var(--ink); background: #fff; line-height: 1.55; font-size: 15px; }
+main { max-width: 860px; margin: 0 auto; padding: 56px 40px 80px; }
+h1 { font-size: 44px; letter-spacing: -.03em; line-height: 1.05; margin: 0; }
+h2 { font-size: 26px; letter-spacing: -.02em; margin: 44px 0 10px; padding-top: 14px; border-top: 2px solid var(--ink); }
+h3 { font-size: 18px; margin: 26px 0 6px; }
+p, li { color: var(--ink2); }
+.lead { font-size: 18px; color: var(--ink2); }
+.cover { display: flex; gap: 26px; align-items: center; margin-bottom: 18px; }
+.cover img { width: 92px; }
+.meta { font-size: 14px; color: var(--mute); }
+table { border-collapse: collapse; width: 100%; margin: 12px 0 6px; font-size: 14px; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+tr.hi td { background: #EEF2FF; font-weight: 700; }
+.cap { font-size: 13px; color: var(--mute); margin: 4px 0 18px; }
+figure { margin: 16px 0; }
+figure img { width: 100%; border-radius: 10px; border: 1px solid var(--rule); }
+.box { background: var(--bg); border-radius: 12px; padding: 14px 18px; margin: 14px 0; }
+.box b { color: var(--ink); }
+.tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-right: 6px; }
+.real { background: #DCFCE7; color: #14532D; } .model { background: #FEF3C7; color: #78350F; } .synth { background: #FEE2E2; color: #7F1D1D; }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 18px 0; }
+.kpis div { background: var(--bg); border-radius: 12px; padding: 12px 14px; }
+.kpis b { display: block; font-size: 28px; letter-spacing: -.02em; }
+.kpis span { font-size: 12.5px; color: var(--mute); }
+.toc { columns: 2; font-size: 14px; }
+a { color: var(--brand); }
+code { font-size: 13px; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+@media print {
+  @page { size: A4; margin: 16mm 14mm; }
+  main { padding: 0; max-width: none; }
+  h2 { break-after: avoid; } table, figure, .box, .kpis { break-inside: avoid; }
+  .pb { break-before: page; }
+}
+</style>
+</head>
+<body><main>
+
+<div class="cover"><img src="img/logo.svg" alt="Yövuoro logo"><div>
+  <h1>Yövuoro</h1>
+  <div class="lead">The night shift for AI-RAN. Technical report.</div>
+  <div class="meta">Team EDISS #1 · Frank Ponce · Nokia Student Network Challenge, Turku, 24 Nov 2026 · AI challenge</div>
+</div></div>
+
+<div class="kpis">
+  <div><b>6.2 h</b><span>GPU-hours lent per site per day (validation)</span></div>
+  <div><b>6.8 h</b><span>same, on 2 locked weeks never seen (test)</span></div>
+  <div><b>1.1 %</b><span>of lent time handed back to the radio (test: 1.2 %)</span></div>
+  <div><b>18.1 %</b><span>radio energy saved, 6× less congestion than static rules</span></div>
+</div>
+
+<div class="box"><b>How to read this report.</b> Every number is tagged by what it rests on:
+<span class="tag real">measured</span> real counters from a live operator network or published data;
+<span class="tag model">modelled</span> an explicit, stated assumption on top of real data;
+<span class="tag synth">synthetic</span> an injected scenario (e.g. a football crowd) on top of real traffic.
+All code, data pipelines and logs are reproducible from the repository (section 10).</div>
+
+<div class="toc">
+<ol>
+<li>The problem</li><li>The product</li><li>Data</li><li>The forecaster (the AI)</li><li>Sleeping radios safely</li><li>Lending the GPU</li><li>AI agents, testing and admission</li><li>Business case</li><li>Limitations and what the pilot must prove</li><li>Reproducibility and sources</li>
+</ol>
+</div>
+
+<h2>1 · The problem</h2>
+<p>Nokia is moving its RAN onto GPUs: Nvidia invested $1 B in Nokia (Oct 2025), and Nokia's AI-RAN platform launched in July 2026 with pilots this year and commercial availability in 2027. Operators push back on power, cost and return. Orange's CTO, Bruno Zerbib, called it a "risky architecture change" for "zero benefits" (Light Reading, 23 Nov 2026); Vodafone and VMO2 voiced similar doubts. Nokia's RAN CTO calls monetisation "the tough part".</p>
+<p>Nokia's own answer is to share the GPU: its white paper <i>The value-creating fusion of AI and RAN</i> describes "utilizing RAN computing power for other AI workloads when mobile traffic is low" and AI work "scheduled into low-traffic hours of the RAN"; its AI-and-RAN page offers spare capacity "under a PaaS or GPUaaS model". What is missing is <b>how much can be lent, with what guarantee, and to whom</b>. Nobody will risk the radio without that.</p>
+<p>At the same time the radios themselves waste the night: a 5G 3.5 GHz capacity radio draws <span class="tag real">measured</span> 88 % of its energy just by being switched on (72 % for mid-band), whatever the traffic.</p>
+
+<h2>2 · The product</h2>
+<p><b>Yövuoro is software</b>: an rApp on Nokia MantaRay SMO, sold by Nokia per site (as an add-on to the AI-RAN software subscription or as a share of GPU rent). No new hardware. Three pillars on one brain:</p>
+<table>
+<tr><th>Pillar</th><th>What it does</th><th>Result</th></tr>
+<tr><td><b>Sleep</b></td><td>Switches off capacity radios when the cautious forecast says the coverage layer can carry their users; wakes them before the rush.</td><td>18.1 % radio energy saved at a sixth of static rules' congestion</td></tr>
+<tr><td><b>Lend</b></td><td>Every hour, leases the GPU slices (⅛ each) the radio will not need to AI tenants; evicts them the moment real demand rises.</td><td>6.2 GPU-h/site/day, 1.1 % evicted (test: 6.8 h, 1.2 %)</td></tr>
+<tr><td><b>Admit</b></td><td>Only AI jobs and agents with a signed crash-test result for their exact model get on; every lease and eviction gets a signed receipt (billing, audit).</td><td>0-score agent refused by <code>admit()</code></td></tr>
+<tr><td><i>Brain</i></td><td><i>Quantile forecast (P10/P50/P90) of every site's traffic, 10 h ahead, calibrated; plans always use the cautious P90.</i></td><td><i>P10–P90 coverage 80–81 % on unseen weeks</i></td></tr>
+</table>
+<figure><img src="img/report/plug_2.jpg" alt="How Yövuoro plugs into Nokia's platform"><figcaption class="cap">Figure 1. Integration: network data in; sleep commands, GPU leases and signed receipts out.</figcaption></figure>
+
+<h2 class="pb">3 · Data</h2>
+<table>
+<tr><th>Source</th><th>What</th><th>Status</th></tr>
+<tr><td>Lehoczký et al., <i>Scientific Data</i> (2026), doi:10.1038/s41597-026-07723-0; dataset doi:10.5281/zenodo.17815388 (CC BY 4.0)</td><td>15-minute performance counters from a live commercial 2G/4G/5G network: per-carrier PRB load, downlink volume, radio-unit and baseband energy. We use 749 sectors on 264 sites, 31 Aug – 22 Nov 2025.</td><td><span class="tag real">measured</span></td></tr>
+<tr><td>3GPP TR 38.864</td><td>Sleep-state power levels and transition energy for radio units.</td><td><span class="tag real">published</span></td></tr>
+<tr><td>Nordic day-ahead prices, Fingrid CO₂</td><td>Electricity price and emission factor (used for € and CO₂).</td><td><span class="tag real">measured</span></td></tr>
+<tr><td>GPU demand of the RAN</td><td>Not published by anyone. Modelled as floor + (1 − floor) × site traffic / site capacity (section 6).</td><td><span class="tag model">modelled</span></td></tr>
+</table>
+<p><b>Splits, fixed before any result:</b> train 31 Aug – 25 Oct · validation 26 Oct – 8 Nov · <b>locked test 9 – 22 Nov</b> (run once, at the end, with the frozen method). Data quality issues found and fixed are logged (e.g. timestamps labelled UTC were local time; per-carrier calibration masks).</p>
+
+<h2>4 · The forecaster (the AI)</h2>
+<p>A gradient-boosted (LightGBM) quantile model per layer (mid-band LTE 1800 + NR 2100, NR 3500, low-band LTE 700/800) predicts each sector's downlink volume for the next 40 quarter-hours (10 h) at P10, P50 and P90. Features: recent levels, same quarter-hour one day and one week earlier, time of day and week. It is re-fitted weekly on all past data and calibrated with rolling Mondrian conformal offsets by local hour, so the P90 really is exceeded about 10 % of the time.</p>
+<table>
+<tr><th>Layer</th><th class="n">Skill vs seasonal naive, validation</th><th class="n">Skill, locked test</th><th class="n">P10–P90 coverage, validation</th><th class="n">Coverage, test</th></tr>
+<tr><td>Mid-band (LTE 1800 + NR 2100)</td><td class="n">+29.9 %</td><td class="n">+29.5 %</td><td class="n">80.2 %</td><td class="n">81.2 %</td></tr>
+<tr><td>5G 3.5 GHz</td><td class="n">+27.8 %</td><td class="n">+29.4 %</td><td class="n">80.0 %</td><td class="n">81.3 %</td></tr>
+<tr><td>Low-band (LTE 700/800)</td><td class="n">+36.2 %</td><td class="n">+18.8 %</td><td class="n">83.6 %</td><td class="n">79.6 %</td></tr>
+</table>
+<p class="cap">Skill = reduction in mean absolute error of the P50 vs "same quarter-hour last week". Target coverage 80 %. The low band is weaker on unseen weeks: an honest caveat; it does not drive GPU lending, which is dominated by mid-band and 5G traffic.</p>
+<p><b>Why AI:</b> fixed rules react to the load they see now; the forecast sees the next ten hours and how uncertain they are. That uncertainty band is what lets Yövuoro promise a tenant a guarantee.</p>
+
+<h2>5 · Sleeping radios safely</h2>
+<p>An exact dynamic-programming planner per sector chooses, quarter-hour by quarter-hour, which capacity radios sleep, re-planned hourly. A sleep is allowed only if the coverage layer that receives the users stays under its limit <i>at the P90 forecast</i>; switching energy is counted so radios do not flap; a watchdog wakes everything if real load exceeds the limit. Energy uses a per-radio-unit model fitted on the measured energy (R² 0.92 / 0.96 / 0.84) and 3GPP sleep states.</p>
+<table>
+<tr><th>Method (validation, 749 sectors)</th><th class="n">Radio energy saved</th><th class="n">Congested ¼-h per sector-day</th><th class="n">Traffic pushed past capacity</th><th class="n">Emergency wake-ups</th></tr>
+<tr><td>Static load thresholds (industry rule of thumb)</td><td class="n">18.1 %</td><td class="n">3.67</td><td class="n">6.2 TB</td><td class="n">38 471</td></tr>
+<tr><td>O-RAN SC energy-saving rApp logic</td><td class="n">12.9 %</td><td class="n">0.81</td><td class="n">2.0 TB</td><td class="n">8 478</td></tr>
+<tr class="hi"><td>Yövuoro planner (P90)</td><td class="n">18.1 %</td><td class="n">0.59</td><td class="n">1.8 TB</td><td class="n">6 214</td></tr>
+<tr><td>Yövuoro, careful margin 1.5</td><td class="n">14.1 %</td><td class="n">0.14</td><td class="n">0.9 TB</td><td class="n">1 444</td></tr>
+<tr><td><i>Ablation: plan on P50 instead of P90</i></td><td class="n">20.0 %</td><td class="n">3.16</td><td class="n">5.4 TB</td><td class="n">33 088</td></tr>
+<tr><td><i>Oracle (perfect foresight, ceiling)</i></td><td class="n">22.6 %</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+</table>
+<p class="cap"><span class="tag real">measured</span> traffic and energy; moved traffic re-routed to the coverage layer with measured per-band efficiency <span class="tag model">modelled</span>. Same forecasts, simulator and watchdog for every method.</p>
+<figure><img src="img/report/s3b_2.jpg" alt="Energy saved vs congestion for every method"><figcaption class="cap">Figure 2. Saving energy is easy; saving it without hurting users is the product. Yövuoro's margin is a dial along the curve, above every baseline.</figcaption></figure>
+
+<h2 class="pb">6 · Lending the GPU</h2>
+<h3>Model <span class="tag model">modelled</span></h3>
+<ul>
+<li>One GPU per site (Nokia's AI-RAN plug-in card in the AirScale baseband), shared by the site's sectors.</li>
+<li>Radio GPU demand = floor + (1 − floor) × site traffic / site capacity; capacity = the site's 99.5th-percentile traffic on the training weeks (the GPU is sized for the busy hour). Floor 20 % (also run at 10 % and 30 %).</li>
+<li>Every hour, Yövuoro leases whole ⅛ slices for the next hour: lease = ⌊(1 − max P90 demand − reserve) × 8⌋ / 8. If real demand + lease exceeds the GPU in any quarter-hour, the tenant is evicted for that quarter-hour.</li>
+</ul>
+<p><b>Evidence the model is conservative:</b> measured baseband compute is a fixed floor plus a linear term in traffic (Tran et al., arXiv 1706.06251: CPU % = 21.4 + 0.62 × throughput); on Nvidia Aerial L1 the radio uses at most ~35 % of the GPU's SMs and under 20 % at most operating points (Weaver, arXiv 2609.35276); Nvidia's own AI-RAN proof of concept capped the RAN at 40 % of a GH200 (arXiv 2501.09007). We assume peak traffic fills 100 %.</p>
+<table>
+<tr><th>Setting (floor 20 %)</th><th class="n">GPU-h lent / site / day</th><th class="n">Lent time evicted</th><th class="n">GPU utilisation (radio only → with tenants)</th></tr>
+<tr class="hi"><td>P90, no extra reserve (headline)</td><td class="n">6.2</td><td class="n">1.1 %</td><td class="n">49 % → 75 %</td></tr>
+<tr><td>P90 + ⅛ reserve</td><td class="n">4.0</td><td class="n">0.40 %</td><td class="n">49 % → 65 %</td></tr>
+<tr><td>P90 + ¼ reserve</td><td class="n">2.3</td><td class="n">0.19 %</td><td class="n">49 % → 58 %</td></tr>
+<tr><td><i>Plan on P50 (ablation)</i></td><td class="n">8.6</td><td class="n">17.6 %</td><td class="n">49 % → 85 %</td></tr>
+</table>
+<table>
+<tr><th>Sensitivity</th><th class="n">P90: GPU-h / evicted</th><th class="n">P50: GPU-h / evicted</th></tr>
+<tr><td>Floor 10 %</td><td class="n">7.2 h / 1.2 %</td><td class="n">9.7 h / 19.1 %</td></tr>
+<tr><td>Floor 30 %</td><td class="n">5.3 h / 1.1 %</td><td class="n">7.5 h / 16.5 %</td></tr>
+<tr><td>Radio peaks at 60 % of the GPU</td><td class="n">12.2 h / 0.85 %</td><td class="n">13.3 h / 11.3 %</td></tr>
+<tr><td>Radio peaks at 40 % (as measured in the literature)</td><td class="n">15.3 h / 0.65 %</td><td class="n">15.7 h / 9.2 %</td></tr>
+<tr class="hi"><td><b>Locked test weeks</b>, headline setting</td><td class="n">6.8 h / 1.2 %</td><td class="n">8.9 h / 16.3 %</td></tr>
+<tr><td>Locked test weeks, radio peaks at 40 %</td><td class="n">15.5 h / 0.67 %</td><td class="n">15.8 h / 8.4 %</td></tr>
+</table>
+<p class="cap">Planning on the cautious P90 is consistently ~13–15× safer than the median at every setting. Night profile: up to 56 % of the GPU lendable at 03:00–05:00, 10–14 % in the evening peak.</p>
+<figure><img src="img/report/ns_2.jpg" alt="GPU over a day"><figcaption class="cap">Figure 3. One site's GPU over a day, averaged over 264 real sites: radio demand (blue) and lent slices (green).</figcaption></figure>
+<h3>Which sites get a GPU</h3>
+<p>Nokia's own commissioned study (Chetan Sharma Consulting, Sep 2026) recommends GPUs "at the sites where the economics justify it". In our network the busiest 20 % of sites carry 49 % of traffic and can still lend <b>5.2 GPU-h/day</b>; sites with 5G 3.5 GHz lend 5.5 h. Yövuoro produces this map from an operator's own counters before any GPU is bought.</p>
+<figure><img src="img/report/map_2.jpg" alt="Site map"><figcaption class="cap">Figure 4. Every real site: share of traffic vs lendable GPU-hours.</figcaption></figure>
+<figure><img src="img/report/demo_0.jpg" alt="Yövuoro console"><figcaption class="cap">Figure 5. The Yövuoro console replaying a real site's real day (validation weeks): radio demand, the P90 plan, slices lent and handed back, admissions log.</figcaption></figure>
+
+<h2 class="pb">7 · AI agents, testing and admission</h2>
+<p>Agents connect through an MCP server (12 tools: read KPIs, forecasts, prices, events; simulate; propose plans). They add value only where a forecast is blind: <span class="tag synth">synthetic</span> a football derby ending 22:30 (crowd surge injected on real traffic, 12 episodes). An LLM agent (DeepSeek V4 Flash) reading the event calendar removed <b>92 %</b> of the derby's extra congestion (congested quarter-hours 163 → 97; perfect calendar reader 91) for 0.1 point of savings, at €0.04 per 31-sector night.</p>
+<p>The same calendar is an attack surface. <b>NetCrash</b> runs each agent × model through hostile nights (alarm-text injection, missing KPIs, unknown outcomes, fake confirmations, protected cells, budget loops, credential and subscriber-data leaks, calendar injection), 3 runs per test. Results differ by model (e.g. calendar-injection test: DeepSeek V4 Flash 100, Mistral Small 3.2 33, GPT-OSS-120B 33; a deliberately sloppy agent 0). Results are signed (in-toto, DSSE, Ed25519) and checked by <code>admit()</code>, compatible with agent-trust-kit test vectors. A deterministic arbiter enforces hard invariants no prompt can change (receiving layer fits at P90, protected cells never sleep, blast radius, scope, and for lending the radio reserve).</p>
+
+<h2>8 · Business case</h2>
+<table>
+<tr><th>Line</th><th class="n">Value</th><th>Basis</th></tr>
+<tr><td>GPU time lent</td><td class="n">≈ €360 / site / yr</td><td>2 270 GPU-h × €0.40 × 40 % sold (cloud RTX PRO 6000: $1.5–3/h, Nov 2026)</td></tr>
+<tr><td>Radio energy saved</td><td class="n">≈ €330 / site / yr</td><td>2.68 kWh / sector-day × 2.8 sectors × 365 × €0.12/kWh</td></tr>
+<tr class="hi"><td>Value per AI-RAN site</td><td class="n">≈ €700 / yr</td><td></td></tr>
+<tr><td>Operator, 10 000 AI-RAN sites</td><td class="n">≈ €7 M / yr</td><td>and ≈ 7 000 t CO₂ / yr on an EU-average grid (~250 g/kWh)</td></tr>
+<tr><td>Nokia's share (~20 %)</td><td class="n">≈ €1.4 M / operator / yr</td><td>add-on to the AI-RAN software subscription, or share of GPU rent; plus agent certification</td></tr>
+<tr><td>Running cost</td><td class="n">≈ €1.40 / site / yr</td><td>LLM agent; compute negligible. GPU electricity for sold hours ≈ €20–55 / site / yr</td></tr>
+<tr><td>Build</td><td class="n">3 engineers × 6 months</td><td>productise on MantaRay SMO + one pilot cluster</td></tr>
+<tr><td>Market</td><td class="n">AI-RAN ≈ $35 B by 2030</td><td>Dell'Oro, via Fierce Network</td></tr>
+</table>
+<p><b>Customers and delivery:</b> operators buying Nokia AI-RAN; Nokia sells it inside the deal. First tenant for the GPU time is the operator's own night-time AI (network agents, analytics, model retraining). Pilot candidate: Elisa, which already runs AI workloads alongside voice and data on Nokia AI-RAN (Nokia Q3 2026 call). Nokia's CEO Justin Hotard: AI-RAN "allows telcos to get more from their existing infrastructure"; Yövuoro is that "more".</p>
+
+<h2>9 · Limitations and what the pilot must prove</h2>
+<ul>
+<li><b>GPU demand is modelled.</b> No public GPU traces exist; the pilot's shadow phase measures real L1 GPU load against traffic. Published measurements suggest our numbers are a floor.</li>
+<li><b>One network, one season.</b> 264 Slovak sites in autumn 2025. Same method on a Finnish network is the next test.</li>
+<li><b>Low-band forecast skill drops on unseen weeks</b> (+36 % → +19 %).</li>
+<li><b>Sleep savings are radio-unit energy vs always-on</b>; not comparable to vendor figures measured on top of existing features.</li>
+<li><b>Event scenarios are synthetic surges on real traffic</b>; GPU rental price and sell-through are assumptions.</li>
+<li><b>Quarter-hour eviction is a budget, not enforcement:</b> slot-level isolation (MIG / Green Contexts; e.g. ScaleRAN, Beaver) enforces it in microseconds.</li>
+</ul>
+
+<h2>10 · Reproducibility and sources</h2>
+<p>Pipelines: <code>analysis/night_shift.py</code> (GPU lending), <code>analysis/headroom.py</code>, <code>analysis/site_map.py</code>, <code>analysis/fit_test.py</code> + <code>analysis/gpu_test.py</code> (locked test weeks), on the open-source Yövahti prototype (forecaster, planner, MCP server, NetCrash, <code>admit()</code>). Decisions, findings (including what went wrong) and every source are logged in <code>docs/</code>.</p>
+<p class="meta">Key sources: Lehoczký et al., Scientific Data 2026 · 3GPP TR 38.864 · Nokia, "The value-creating fusion of AI and RAN" (white paper) · Nokia AI-RAN launch release, 15 Jul 2026 · Nokia AI and RAN page · Light Reading (Orange CTO, 23 Nov 2026; "Nokia badly needs big AI-RAN deals") · Fierce Network / Chetan Sharma Consulting (Sep 2026) · RCR Wireless (Nokia Q3 2026) · arXiv 2611.08739 (C²AIR), 2610.23072 (ScaleRAN), 2610.02522 (Beaver), 2609.35276 (Weaver), 2501.09007 (AI-RAN PoC), 1706.06251 (vBBU compute) · Dell'Oro AI-RAN forecast · cloud GPU price trackers (Nov 2026).</p>
+</main></body></html>

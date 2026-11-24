@@ -1,0 +1,272 @@
+{
+ "assumptions": {
+  "sites": 264,
+  "sectors": 749,
+  "window": "validation 26 Oct - 8 Nov 2025",
+  "gpu": "one per site, sized for the site's 99.5th-pct training-week traffic",
+  "demand": "floor + (1-floor) * traffic/capacity",
+  "slices": 8,
+  "lease": "hourly, from the forecast issued that hour",
+  "headline": {
+   "q": "P90",
+   "floor": 0.2,
+   "reserve": 0.0
+  }
+ },
+ "rows": [
+  {
+   "forecast": "P90",
+   "floor": 0.1,
+   "reserve": 0.0,
+   "gpu_hours_per_site_day": 7.176110998376624,
+   "night_gpu_hours_per_site_night": 3.736717058982684,
+   "mean_lent_share": 0.2990046249323593,
+   "night_lent_share": 0.4670896323728355,
+   "eviction_rate_pct": 1.2188413769143915,
+   "evicted_gpu_hours_per_site_day": 0.09374154491341992,
+   "ran_only_utilisation_pct": 42.34223023931096,
+   "with_tenants_utilisation_pct": 72.24269273254689
+  },
+  {
+   "forecast": "P90",
+   "floor": 0.1,
+   "reserve": 0.125,
+   "gpu_hours_per_site_day": 4.913563649891775,
+   "night_gpu_hours_per_site_night": 2.862393465909091,
+   "mean_lent_share": 0.20473181874549062,
+   "night_lent_share": 0.35779918323863635,
+   "eviction_rate_pct": 0.4367342532788802,
+   "evicted_gpu_hours_per_site_day": 0.019911728896103896,
+   "ran_only_utilisation_pct": 42.34223023931096,
+   "with_tenants_utilisation_pct": 62.81541211386003
+  },
+  {
+   "forecast": "P90",
+   "floor": 0.1,
+   "reserve": 0.25,
+   "gpu_hours_per_site_day": 3.0476782332251084,
+   "night_gpu_hours_per_site_night": 2.021983225108225,
+   "mean_lent_share": 0.12698659305104618,
+   "night_lent_share": 0.25274790313852813,
+   "eviction_rate_pct": 0.2259659893777713,
+   "evicted_gpu_hours_per_site_day": 0.005960836038961039,
+   "ran_only_utilisation_pct": 42.34223023931096,
+   "with_tenants_utilisation_pct": 55.040889544415585
+  },
+  {
+   "forecast": "P50",
+   "floor": 0.1,
+   "reserve": 0.0,
+   "gpu_hours_per_site_day": 9.73823051948052,
+   "night_gpu_hours_per_site_night": 4.298532196969697,
+   "mean_lent_share": 0.405759604978355,
+   "night_lent_share": 0.5373165246212122,
+   "eviction_rate_pct": 19.059883338037444,
+   "evicted_gpu_hours_per_site_day": 2.2037675865800863,
+   "ran_only_utilisation_pct": 42.34223023931096,
+   "with_tenants_utilisation_pct": 82.91819073714646
+  },
+  {
+   "forecast": "P90",
+   "floor": 0.2,
+   "reserve": 0.0,
+   "gpu_hours_per_site_day": 6.244715570887446,
+   "night_gpu_hours_per_site_night": 3.2760923971861473,
+   "mean_lent_share": 0.26019648212031027,
+   "night_lent_share": 0.4095115496482684,
+   "eviction_rate_pct": 1.1384469808977467,
+   "evicted_gpu_hours_per_site_day": 0.07542782738095237,
+   "ran_only_utilisation_pct": 48.74864910160975,
+   "with_tenants_utilisation_pct": 74.76829731364076
+  },
+  {
+   "forecast": "P90",
+   "floor": 0.2,
+   "reserve": 0.125,
+   "gpu_hours_per_site_day": 4.01756966991342,
+   "night_gpu_hours_per_site_night": 2.3999425054112558,
+   "mean_lent_share": 0.1673987362463925,
+   "night_lent_share": 0.2999928131764069,
+   "eviction_rate_pct": 0.3970242454612034,
+   "evicted_gpu_hours_per_site_day": 0.015100784632034634,
+   "ran_only_utilisation_pct": 48.74864910160975,
+   "with_tenants_utilisation_pct": 65.488522726249
+  },
+  {
+   "forecast": "P90",
+   "floor": 0.2,
+   "reserve": 0.25,
+   "gpu_hours_per_site_day": 2.274206912878788,
+   "night_gpu_hours_per_site_night": 1.57616341991342,
+   "mean_lent_share": 0.09475862136994949,
+   "night_lent_share": 0.1970204274891775,
+   "eviction_rate_pct": 0.19423173662735455,
+   "evicted_gpu_hours_per_site_day": 0.003661052489177489,
+   "ran_only_utilisation_pct": 48.74864910160975,
+   "with_tenants_utilisation_pct": 58.22451123860469
+  },
+  {
+   "forecast": "P50",
+   "floor": 0.2,
+   "reserve": 0.0,
+   "gpu_hours_per_site_day": 8.634960091991342,
+   "night_gpu_hours_per_site_night": 3.7897980925324677,
+   "mean_lent_share": 0.3597900038329726,
+   "night_lent_share": 0.47372476156655846,
+   "eviction_rate_pct": 17.63803680981595,
+   "evicted_gpu_hours_per_site_day": 1.808424648268398,
+   "ran_only_utilisation_pct": 48.74864910160975,
+   "with_tenants_utilisation_pct": 84.727649484907
+  },
+  {
+   "forecast": "P90",
+   "floor": 0.3,
+   "reserve": 0.0,
+   "gpu_hours_per_site_day": 5.308373917748917,
+   "night_gpu_hours_per_site_night": 2.8099888392857144,
+   "mean_lent_share": 0.22118224657287158,
+   "night_lent_share": 0.3512486049107143,
+   "eviction_rate_pct": 1.0972693906766369,
+   "evicted_gpu_hours_per_site_day": 0.061079545454545456,
+   "ran_only_utilisation_pct": 55.15506796390852,
+   "with_tenants_utilisation_pct": 77.27329262119568
+  },
+  {
+   "forecast": "P90",
+   "floor": 0.3,
+   "reserve": 0.125,
+   "gpu_hours_per_site_day": 3.1395427489177488,
+   "night_gpu_hours_per_site_night": 1.9384469696969695,
+   "mean_lent_share": 0.1308142812049062,
+   "night_lent_share": 0.24230587121212122,
+   "eviction_rate_pct": 0.32388921926769176,
+   "evicted_gpu_hours_per_site_day": 0.009165313852813854,
+   "ran_only_utilisation_pct": 55.15506796390852,
+   "with_tenants_utilisation_pct": 68.23649608439915
+  },
+  {
+   "forecast": "P90",
+   "floor": 0.3,
+   "reserve": 0.25,
+   "gpu_hours_per_site_day": 1.554518398268398,
+   "night_gpu_hours_per_site_night": 1.1398048566017316,
+   "mean_lent_share": 0.06477159992784992,
+   "night_lent_share": 0.14247560707521645,
+   "eviction_rate_pct": 0.13047309204283583,
+   "evicted_gpu_hours_per_site_day": 0.0017924783549783548,
+   "ran_only_utilisation_pct": 55.15506796390852,
+   "with_tenants_utilisation_pct": 61.63222795669352
+  },
+  {
+   "forecast": "P50",
+   "floor": 0.3,
+   "reserve": 0.0,
+   "gpu_hours_per_site_day": 7.499408143939394,
+   "night_gpu_hours_per_site_night": 3.28028612012987,
+   "mean_lent_share": 0.31247533933080807,
+   "night_lent_share": 0.4100357650162338,
+   "eviction_rate_pct": 16.54432607360514,
+   "evicted_gpu_hours_per_site_day": 1.4844595508658007,
+   "ran_only_utilisation_pct": 55.15506796390852,
+   "with_tenants_utilisation_pct": 86.40260189698932
+  }
+ ],
+ "hour_profile": {
+  "0": {
+   "ran_demand_pct": 39.44725572366396,
+   "lent_pct": 33.894751082251084
+  },
+  "1": {
+   "ran_demand_pct": 33.8683109297167,
+   "lent_pct": 46.059149184149184
+  },
+  "2": {
+   "ran_demand_pct": 30.916269471059238,
+   "lent_pct": 49.7790404040404
+  },
+  "3": {
+   "ran_demand_pct": 28.599950827309577,
+   "lent_pct": 55.512716450216445
+  },
+  "4": {
+   "ran_demand_pct": 28.496019944038846,
+   "lent_pct": 56.02002164502164
+  },
+  "5": {
+   "ran_demand_pct": 30.418238992860903,
+   "lent_pct": 52.22876082251082
+  },
+  "6": {
+   "ran_demand_pct": 36.078025678873495,
+   "lent_pct": 42.19426406926407
+  },
+  "7": {
+   "ran_demand_pct": 44.24466216377231,
+   "lent_pct": 31.10457251082251
+  },
+  "8": {
+   "ran_demand_pct": 48.82969688557643,
+   "lent_pct": 26.153273809523807
+  },
+  "9": {
+   "ran_demand_pct": 51.48583532436466,
+   "lent_pct": 22.56155303030303
+  },
+  "10": {
+   "ran_demand_pct": 53.48910252023562,
+   "lent_pct": 20.45116341991342
+  },
+  "11": {
+   "ran_demand_pct": 54.91096387400616,
+   "lent_pct": 19.17275432900433
+  },
+  "12": {
+   "ran_demand_pct": 56.16624398921116,
+   "lent_pct": 17.789502164502164
+  },
+  "13": {
+   "ran_demand_pct": 56.67472844182942,
+   "lent_pct": 17.427624458874458
+  },
+  "14": {
+   "ran_demand_pct": 57.03242668688766,
+   "lent_pct": 16.55167748917749
+  },
+  "15": {
+   "ran_demand_pct": 57.025374373257485,
+   "lent_pct": 16.879734848484848
+  },
+  "16": {
+   "ran_demand_pct": 57.75450146711505,
+   "lent_pct": 14.228219696969695
+  },
+  "17": {
+   "ran_demand_pct": 58.09493679207986,
+   "lent_pct": 13.585633116883116
+  },
+  "18": {
+   "ran_demand_pct": 59.164111342142434,
+   "lent_pct": 12.388392857142858
+  },
+  "19": {
+   "ran_demand_pct": 60.57783422602143,
+   "lent_pct": 10.721049783549784
+  },
+  "20": {
+   "ran_demand_pct": 61.67520265119633,
+   "lent_pct": 10.041260822510822
+  },
+  "21": {
+   "ran_demand_pct": 61.26786491004324,
+   "lent_pct": 10.450487012987013
+  },
+  "22": {
+   "ran_demand_pct": 56.45941621505817,
+   "lent_pct": 13.572104978354979
+  },
+  "23": {
+   "ran_demand_pct": 47.50146511250362,
+   "lent_pct": 22.980925324675326
+  }
+ }
+}

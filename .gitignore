@@ -1,0 +1,14 @@
+# private pitch prep (script, plan, red-team notes)
+private/
+# downloaded third-party originals (white paper, press photos): not ours to redistribute
+sources/
+# large generated arrays and raw renders (re-creatable)
+results/forecasts/
+site/img/src/
+# local tooling
+.vercel/
+site/.vercel/
+.claude/
+.impeccable/hook.cache.json
+__pycache__/
+*.pyc
