@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="t d">
+  <title id="t">Yövuoro</title>
+  <desc id="d">The night shift for AI-RAN: sleep idle radios, lend the idle GPU, admit only tested AI. A day of one site's GPU: radio demand in indigo, slices lent to AI in green, peaking at night.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#16213A"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#1A2540" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#22C55E" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#22C55E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="moonglow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FBBF24" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#FBBF24" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0B1220" stop-opacity="1"/>
+      <stop offset="0.75" stop-color="#0B1220" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#0B1220" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="crescent"><rect width="1200" height="300" fill="#fff"/><circle cx="959" cy="40" r="16" fill="#000"/></mask>
+  </defs>
+
+  <rect width="1200" height="300" rx="16" fill="url(#bg)"/>
+  <rect width="1200" height="300" rx="16" fill="url(#grid)" opacity="0.9"/>
+  <rect x="0.5" y="0.5" width="1199" height="299" rx="16" fill="none" stroke="#A5B4FC" stroke-opacity="0.25"/>
+
+  <!-- stars -->
+  <g fill="#E2E8F0">
+    <circle cx="1010" cy="34" r="1.6" opacity="0.8"/><circle cx="1068" cy="58" r="1.2" opacity="0.6"/>
+    <circle cx="1120" cy="30" r="1.8" opacity="0.7"/><circle cx="890" cy="26" r="1.2" opacity="0.5"/>
+    <circle cx="1160" cy="74" r="1.2" opacity="0.5"/><circle cx="840" cy="48" r="1.4" opacity="0.6"/>
+  </g>
+  <!-- moon over the night shift -->
+  <circle cx="948" cy="48" r="40" fill="url(#moonglow)"/>
+  <circle cx="948" cy="48" r="15" fill="#FBBF24" mask="url(#crescent)"/>
+
+  <!-- one site's GPU over a day: radio (indigo) + lent to AI (green) -->
+  <ellipse cx="1000" cy="150" rx="170" ry="110" fill="url(#glow)"/>
+  <line x1="694" y1="252.5" x2="1162" y2="252.5" stroke="#334155"/>
+  <line x1="694" y1="62.5" x2="1162" y2="62.5" stroke="#334155" stroke-dasharray="3 6"/>
+  <rect x="700" y="111.4" width="13" height="34.2" rx="2" fill="#22C55E"/><rect x="700" y="145.6" width="13" height="106.4" rx="2" fill="#4F46E5"/><rect x="719" y="111.4" width="13" height="32.3" rx="2" fill="#22C55E"/><rect x="719" y="143.7" width="13" height="108.3" rx="2" fill="#4F46E5"/><rect x="738" y="113.3" width="13" height="30.4" rx="2" fill="#22C55E"/><rect x="738" y="143.7" width="13" height="108.3" rx="2" fill="#4F46E5"/><rect x="757" y="111.4" width="13" height="32.3" rx="2" fill="#22C55E"/><rect x="757" y="143.7" width="13" height="108.3" rx="2" fill="#4F46E5"/><rect x="776" y="115.2" width="13" height="26.6" rx="2" fill="#22C55E"/><rect x="776" y="141.8" width="13" height="110.2" rx="2" fill="#4F46E5"/><rect x="795" y="115.2" width="13" height="26.6" rx="2" fill="#22C55E"/><rect x="795" y="141.8" width="13" height="110.2" rx="2" fill="#4F46E5"/><rect x="814" y="115.2" width="13" height="24.7" rx="2" fill="#22C55E"/><rect x="814" y="139.9" width="13" height="112.1" rx="2" fill="#4F46E5"/><rect x="833" y="117.1" width="13" height="19.0" rx="2" fill="#22C55E"/><rect x="833" y="136.1" width="13" height="115.9" rx="2" fill="#4F46E5"/><rect x="852" y="115.2" width="13" height="19.0" rx="2" fill="#22C55E"/><rect x="852" y="134.2" width="13" height="117.8" rx="2" fill="#4F46E5"/><rect x="871" y="115.2" width="13" height="20.9" rx="2" fill="#22C55E"/><rect x="871" y="136.1" width="13" height="115.9" rx="2" fill="#4F46E5"/><rect x="890" y="119.0" width="13" height="26.6" rx="2" fill="#22C55E"/><rect x="890" y="145.6" width="13" height="106.4" rx="2" fill="#4F46E5"/><rect x="909" y="119.0" width="13" height="43.7" rx="2" fill="#22C55E"/><rect x="909" y="162.7" width="13" height="89.3" rx="2" fill="#4F46E5"/><rect x="928" y="113.3" width="13" height="64.6" rx="2" fill="#22C55E"/><rect x="928" y="177.9" width="13" height="74.1" rx="2" fill="#4F46E5"/><rect x="947" y="100.0" width="13" height="87.4" rx="2" fill="#22C55E"/><rect x="947" y="187.4" width="13" height="64.6" rx="2" fill="#4F46E5"/><rect x="966" y="98.1" width="13" height="95.0" rx="2" fill="#22C55E"/><rect x="966" y="193.1" width="13" height="58.9" rx="2" fill="#4F46E5"/><rect x="985" y="92.4" width="13" height="106.4" rx="2" fill="#22C55E"/><rect x="985" y="198.8" width="13" height="53.2" rx="2" fill="#4F46E5"/><rect x="1004" y="92.4" width="13" height="106.4" rx="2" fill="#22C55E"/><rect x="1004" y="198.8" width="13" height="53.2" rx="2" fill="#4F46E5"/><rect x="1023" y="96.2" width="13" height="98.8" rx="2" fill="#22C55E"/><rect x="1023" y="195.0" width="13" height="57.0" rx="2" fill="#4F46E5"/><rect x="1042" y="103.8" width="13" height="79.8" rx="2" fill="#22C55E"/><rect x="1042" y="183.6" width="13" height="68.4" rx="2" fill="#4F46E5"/><rect x="1061" y="109.5" width="13" height="58.9" rx="2" fill="#22C55E"/><rect x="1061" y="168.4" width="13" height="83.6" rx="2" fill="#4F46E5"/><rect x="1080" y="109.5" width="13" height="49.4" rx="2" fill="#22C55E"/><rect x="1080" y="158.9" width="13" height="93.1" rx="2" fill="#4F46E5"/><rect x="1099" y="111.4" width="13" height="41.8" rx="2" fill="#22C55E"/><rect x="1099" y="153.2" width="13" height="98.8" rx="2" fill="#4F46E5"/><rect x="1118" y="111.4" width="13" height="38.0" rx="2" fill="#22C55E"/><rect x="1118" y="149.4" width="13" height="102.6" rx="2" fill="#4F46E5"/><rect x="1137" y="111.4" width="13" height="36.1" rx="2" fill="#22C55E"/><rect x="1137" y="147.5" width="13" height="104.5" rx="2" fill="#4F46E5"/>
+  <g font-family="Inter, 'Segoe UI', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11" fill="#64748B"><text x="706.5" y="274" text-anchor="middle">12:00</text><text x="820.5" y="274" text-anchor="middle">18:00</text><text x="934.5" y="274" text-anchor="middle">00:00</text><text x="1048.5" y="274" text-anchor="middle">06:00</text></g>
+
+  <rect width="780" height="300" fill="url(#fade)"/>
+
+  <g font-family="Inter, 'Segoe UI', -apple-system, 'Helvetica Neue', Arial, sans-serif">
+    <text x="56" y="76" fill="#94A3B8" font-size="15" font-weight="600" letter-spacing="3">NOKIA STUDENT NETWORK CHALLENGE 2026 · AI-RAN</text>
+    <text x="56" y="132" fill="#F1F5F9" font-size="44" font-weight="800" letter-spacing="2">YÖVUORO <tspan fill="#A5B4FC" font-size="22" font-style="italic" font-weight="600" letter-spacing="0.5">the night shift</tspan></text>
+    <text x="56" y="172" fill="#94A3B8" font-size="20">The radio always wins. <tspan fill="#4ADE80">The GPU pays its way.</tspan></text>
+
+    <g font-size="15" font-weight="600" fill="#F1F5F9">
+      <rect x="56" y="204" width="104" height="34" rx="17" fill="#111A2E" stroke="#26324D"/>
+      <circle cx="76" cy="221" r="6" fill="#94A3B8"/><text x="90" y="226">Sleep</text>
+      <rect x="172" y="204" width="98" height="34" rx="17" fill="#111A2E" stroke="#26324D"/>
+      <circle cx="192" cy="221" r="6" fill="#22C55E"/><text x="206" y="226">Lend</text>
+      <rect x="282" y="204" width="114" height="34" rx="17" fill="#111A2E" stroke="#26324D"/>
+      <circle cx="302" cy="221" r="6" fill="#6366F1"/><text x="316" y="226">Admit</text>
+    </g>
+  </g>
+</svg>

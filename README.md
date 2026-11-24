@@ -13,7 +13,7 @@ Nokia is putting Nvidia GPUs into its future RAN. Operators push back: too much 
 At night both the radios and the base-station GPU sit idle. For every site and every quarter-hour, Yövuoro decides whether to **serve**, **sleep** the capacity radios, or **lend** spare GPU slices, planning on the pessimistic (P90) forecast so the radio always comes first. Only tenants and AI agents with a signed test result for their exact model get on; every lent slice-hour gets a signed receipt.
 
 ## The product
-**Yövuoro is software**: an rApp on Nokia's MantaRay SMO, licensed per site per year and sold by Nokia inside the AI-RAN deal. No new hardware. Three pillars on one brain:
+**Yövuoro is software, not SaaS**: an rApp that runs inside the operator's own network, on Nokia's MantaRay SMO, licensed per site per year and sold by Nokia inside the AI-RAN deal. No new hardware. Three pillars on one brain:
 
 | Pillar | What it does | Result |
 |---|---|---|

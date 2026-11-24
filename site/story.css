@@ -376,3 +376,23 @@ body.capture *, body.capture *::before, body.capture *::after { transition: none
 
 .qr { position: absolute; right: 70px; bottom: 60px; width: 150px; text-align: center; color: #CBD5E1; font-size: 14px; font-weight: 700; }
 .qr img { width: 150px; height: 150px; background: #fff; padding: 10px; border-radius: 14px; display: block; margin-bottom: 8px; }
+
+/* ---------- what it is (plug scene) ---------- */
+.whatis { position: absolute; left: 90px; top: 690px; width: 1420px; }
+.whatis .wbig { font-size: 56px; font-weight: 800; letter-spacing: -.03em; color: #fff; }
+.whatis .wrow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 16px; }
+.whatis .wrow div { border-top: 3px solid #A5B4FC; padding-top: 10px; font-size: 26px; font-weight: 800; color: #F1F5F9; line-height: 1.25; }
+.whatis .wrow span { display: block; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: #94A3B8; margin-bottom: 4px; }
+.flowrow { top: 235px; }
+/* ---------- market rings ---------- */
+.rings { position: absolute; left: 90px; top: 250px; width: 1420px; height: 600px; }
+.ring { position: absolute; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; }
+.ring .rv { font-size: 84px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.ring .rl { font-size: 22px; font-weight: 700; margin-top: 8px; max-width: 360px; line-height: 1.3; }
+.ring .rs { font-size: 16px; margin-top: 6px; opacity: .75; }
+.ring.r1 { left: 0; top: 0; width: 600px; height: 600px; background: rgba(165,180,252,.10); border: 2px solid rgba(165,180,252,.35); color: #E0E7FF; padding-top: 70px; }
+.ring.r2 { left: 140px; top: 210px; width: 390px; height: 390px; background: rgba(99,102,241,.30); border: 2px solid #818CF8; color: #fff; padding-top: 70px; }
+.ring.r3 { left: 760px; top: 90px; width: 440px; height: 440px; background: #22C55E; color: #052E16; padding-top: 120px; box-shadow: 0 30px 60px rgba(0,0,0,.35); }
+.ring.r3 .rs { opacity: .85; }
+.r.ring { transform: scale(.6); }
+.r.ring.in { transform: none; }
